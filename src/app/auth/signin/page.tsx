@@ -1,4 +1,3 @@
-import FollowingBar from '@/components/FollowingBar';
 import Signin from '@/components/Signin';
 import SWRConfigContext from '@/context/SWRConfigContext';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
