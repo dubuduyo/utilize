@@ -1,15 +1,24 @@
 'use client';
 import { useState } from 'react';
-import { HomeUser } from '@/model/user';
+import { AuthUser, HomeUser } from '@/model/user';
 import useSWR from 'swr';
+import { addApiKey } from '@/service/user';
+import { useSession } from 'next-auth/react';
 
-export default function APIKeyCheck() {
+type Props = {
+  user: HomeUser;
+};
+
+export default function APIKeyCheck({ user }: Props) {
+  const { id, userkey } = user;
+  const { data: session } = useSession();
+  const userInfo = session?.user;
   const [apiKey, setApiKey] = useState<string>('');
   const [error, setError] = useState<string | boolean>(false);
 
   const handleLogin = async () => {
     setError(false);
-    const _result = await fetch('/api/key', {
+    const result = await fetch('/api/key', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -19,22 +28,26 @@ export default function APIKeyCheck() {
       }),
     });
 
-    const _data = await _result.json();
-    console.log('# check : ', _data);
-    if (_data.result === 'success') {
+    const data = await result.json();
+    console.log(data);
+    if (data.result === 'success') {
       console.log('success');
       sessionStorage.setItem('apiKey', apiKey);
-      // handleFetchApi();
+      addApiKey(id, apiKey)
+        .then((res) => {
+          window.location.reload();
+        })
+        .catch((err) => console.log(err));
     } else {
       console.log('fail');
-      setError('KEY가 올바르지 않습니다.');
+      setError('KEY 틀림');
     }
   };
 
   return (
     <div>
       <input
-        type={'password'}
+        type="text"
         height={48}
         width={'100%'}
         value={apiKey}

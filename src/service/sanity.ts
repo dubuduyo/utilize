@@ -1,9 +1,10 @@
 import { createClient } from '@sanity/client';
 
 export const client = createClient({
-  projectId: process.env.SANITY_PROJECT_ID,
-  dataset: process.env.SANITY_DATASET,
+  projectId: 'q7hw58a4',
+  dataset: 'production',
   useCdn: false,
   apiVersion: 'v1',
-  token: process.env.SANITY_SECRET_TOKEN,
+  token:
+    'skyhC0Z3kSwMK1JIgFmBYMuAikFeSy3omWSkTvliuMFlLcbA2fK6cCfXF8mrhMeb3nWcevNKwXVq6uPCz6hd112LFjUfDzh8JqkBEsjlYoMJVVKyFDiAKi0ijEBq5dHzvYiUlKVEYrvOX1vUdP61cLJabBSkMzhHh28UEynmQWRn1vMAFCcE',
 });

@@ -42,6 +42,6 @@ export async function getUserByUsername(username: string) {
   );
 }
 
-export async function addApiKey(id: string, userkey: string) {
-  return client.patch(id).set({ userkey }).commit();
+export async function addApiKey(id: string, apiKey: string) {
+  return client.patch(id).set({ userkey: apiKey }).commit();
 }

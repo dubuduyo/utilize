@@ -4,6 +4,7 @@ import { error } from 'console';
 import { getServerSession } from 'next-auth';
 import { NextResponse, NextRequest } from 'next/server';
 import { Configuration, OpenAIApi } from 'openai';
+import stringify from '../../../../node_modules/next-auth/node_modules/uuid/dist/esm-node/stringify';
 
 export async function GET(request: Request) {
   return new Response('Hello');
@@ -54,15 +55,13 @@ export async function PUT(request: NextRequest) {
     return new Response('Authentication Error', { status: 401 });
   }
 
-  const { id, userkey } = await request.json();
+  const { id, apiKey } = await request.json();
 
-  if (!id || userkey === undefined) {
-    return new Response('안 됨', { status: 400 });
+  if (!id || apiKey) {
+    return new Response('Bad Request', { status: 400 });
   }
 
-  const apirequest = addApiKey;
+  const requestapi = addApiKey;
 
-  return apirequest(id, user.id)
-    .then((request) => NextResponse.json(request))
-    .catch((error) => new Response(JSON.stringify(error), { status: 500 }));
+  return requestapi(user.id, apiKey).then((res) => NextRequest.json(res)).catch;
 }
