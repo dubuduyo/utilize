@@ -29,7 +29,7 @@ export default function APIKeyCheck({ user }: Props) {
     });
 
     const data = await result.json();
-    console.log(data);
+    console.log('data', data);
     if (data.result === 'success') {
       console.log('success');
       sessionStorage.setItem('apiKey', apiKey);
