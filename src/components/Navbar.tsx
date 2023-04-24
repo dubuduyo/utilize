@@ -23,11 +23,6 @@ const menu = [
     icon: <SearchIcon />,
     clickedIcon: <SearchFillIcon />,
   },
-  {
-    href: '/new',
-    icon: <NewIcon />,
-    clickedIcon: <NewFillIcon />,
-  },
 ];
 export default function Navbar() {
   const pathName = usePathname();
