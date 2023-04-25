@@ -10,7 +10,7 @@ export default {
       to: [{type: 'user'}],
     },
     {
-      name: 'RoomName',
+      name: 'roomname',
       type: 'string',
       title: 'Room Name',
     },

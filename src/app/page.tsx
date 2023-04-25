@@ -1,5 +1,5 @@
-import APIKeyCheck from '@/components/APIKeyCheck';
-import MyInfo from '@/components/MyInfo';
+import ChatPage from '@/components/ChatPage';
+import Sidabar from '@/components/Sidabar';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
@@ -13,10 +13,11 @@ export default async function HomePage() {
   }
 
   return (
-    <section className="w-full flex flex-col md:flex-row max-w-[850px] p-4">
-      <div className="w-full basis-3/4 min-w-0"></div>
-      <MyInfo />
-      <APIKeyCheck user={user} />
-    </section>
+    <div className="flex">
+      <div className="bg-[#202123] max-w-xs h-screen overflow-y-auto md:min-w-[20rem]">
+        <Sidabar />
+      </div>
+      <ChatPage />
+    </div>
   );
 }

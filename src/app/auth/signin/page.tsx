@@ -17,7 +17,7 @@ export default async function SignPage({
   const session = await getServerSession(authOptions);
 
   if (session) {
-    redirect('/');
+    redirect('/my');
   }
 
   const providers = (await getProviders()) ?? {};
