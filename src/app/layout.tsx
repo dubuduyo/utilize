@@ -21,9 +21,11 @@ export default function RootLayout({
       <body className="w-full max-w-screen-xl overflow-auto mx-auto">
         <AuthContext>
           <header className="sticky top-0 bg-white z-10 border-b">
-            <Navbar />
+            <div className="max-w-screen-xl mx-auto">
+              <Navbar />
+            </div>
           </header>
-          <main>
+          <main >
             <SWRConfigContext>{children}</SWRConfigContext>
           </main>
         </AuthContext>
