@@ -1,3 +1,9 @@
+import UserSearch from '@/components/UserSearch';
+
 export default function SearchPage() {
-  return <div className="flex">안녕</div>;
+  return (
+    <div>
+      <UserSearch />
+    </div>
+  );
 }
