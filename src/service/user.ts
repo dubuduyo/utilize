@@ -68,3 +68,21 @@ export async function searchUsers(keyword?: string) {
 export async function addApiKey(id: string, apiKey: string) {
   return client.patch(id).set({ userkey: apiKey }).commit();
 }
+
+export async function getUserForProfile(username: string) {
+  return client
+    .fetch(
+      `*[_type == "user" && username == "${username}"][0]{
+      ...,
+      "id":_id,
+      "following": count(following),
+      "followers": count(followers),
+    }
+    `
+    )
+    .then((user) => ({
+      ...user,
+      following: user.following ?? 0,
+      followers: user.followers ?? 0,
+    }));
+}
