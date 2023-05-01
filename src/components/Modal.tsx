@@ -1,11 +1,10 @@
 import CloseIcon from './ui/icons/CloseIncon';
 
 type Props = {
-  children: React.ReactNode;
   onClose: () => void;
 };
 
-export default function Modal({ onClose, children }: Props) {
+export default function Modal({ onClose }: Props) {
   return (
     <section
       className="fixed top-0 left-0 flex flex-col justify-center items-center w-full h-full z-50 bg-neutral-900/70"
@@ -21,7 +20,7 @@ export default function Modal({ onClose, children }: Props) {
       >
         <CloseIcon />
       </button>
-      <div className="bg-white w-4/5 h-3/5 max-w-7xl">{children}</div>
+      <div className="bg-white w-4/5 h-3/5 max-w-7xl"></div>
     </section>
   );
 }

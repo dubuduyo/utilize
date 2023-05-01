@@ -1,5 +1,6 @@
 import UserProfile from '@/components/UserProfile';
 import { getUserForProfile } from '@/service/user';
+import { notFound } from 'next/navigation';
 
 type Props = { params: { username: string } };
 
