@@ -1,3 +1,4 @@
+import NewRoom from './NewRoom';
 import CloseIcon from './ui/icons/CloseIncon';
 
 type Props = {
@@ -20,7 +21,9 @@ export default function Modal({ onClose }: Props) {
       >
         <CloseIcon />
       </button>
-      <div className="bg-white w-4/5 h-3/5 max-w-7xl"></div>
+      <div className="bg-white w-4/5 h-3/5 max-w-7xl">
+        <NewRoom />
+      </div>
     </section>
   );
 }
