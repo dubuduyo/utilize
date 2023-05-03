@@ -1,9 +1,9 @@
-import { useCallback, useRef, useState } from 'react';
+import { FormEvent, useCallback, useRef, useState } from 'react';
 import SelectDropdown from './ui/SelectDropdown';
+import Button from './ui/Button';
 
 export default function NewRoom() {
   const [roomName, setRoomName] = useState('');
-  const [roomMemberCount, setRoomMemberCount] = useState();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const checkRoomNameLen = useCallback((roomName: string) => {
@@ -46,7 +46,7 @@ export default function NewRoom() {
         onChange={(e) => setRoomName(e.target.value)}
       />
       <SelectDropdown />
-      <button>Post</button>
+      <Button text="Publish" onClick={() => {}} />
     </form>
   );
 }

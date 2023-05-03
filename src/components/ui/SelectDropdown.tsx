@@ -33,15 +33,12 @@ function getStyles(name: string, personName: readonly string[], theme: Theme) {
 
 export default function SelectDropdown() {
   const theme = useTheme();
-  const [personName, setPersonName] = React.useState<string[]>([]);
-  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
+  const [roomMemberCount, setRoomMemberCount] = React.useState<string[]>([]);
+  const handleChange = (event: SelectChangeEvent<typeof roomMemberCount>) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value
-    );
+    setRoomMemberCount(typeof value === 'string' ? value.split(',') : value);
   };
 
   return (
@@ -50,27 +47,23 @@ export default function SelectDropdown() {
         <Select
           multiple
           displayEmpty
-          value={personName}
+          value={roomMemberCount}
           onChange={handleChange}
           input={<OutlinedInput />}
           renderValue={(selected) => {
             if (selected.length === 0) {
-              return <em>Placeholder</em>;
+              return <em>방 인원을 설정해주세요.</em>;
             }
-
             return selected.join(', ');
           }}
           MenuProps={MenuProps}
           inputProps={{ 'aria-label': 'Without label' }}
         >
-          <MenuItem disabled value="">
-            <em>Placeholder</em>
-          </MenuItem>
           {membercount.map((membercount) => (
             <MenuItem
               key={membercount}
               value={membercount}
-              style={getStyles(membercount, personName, theme)}
+              style={getStyles(membercount, roomMemberCount, theme)}
             >
               {membercount}
             </MenuItem>
