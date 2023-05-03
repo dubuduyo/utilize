@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.8",
+    "@emotion/styled": "^11.10.8",
+    "@mui/material": "^5.12.3",
     "@sanity/client": "^5.4.2",
     "@toast-ui/select-box": "^1.1.0",
     "@types/node": "18.15.13",
