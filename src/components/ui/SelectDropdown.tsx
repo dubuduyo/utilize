@@ -7,7 +7,13 @@ import {
   Theme,
   useTheme,
 } from '@mui/material';
-import React from 'react';
+import React, { ChangeEventHandler } from 'react';
+
+type SelectProps = {
+  label?: string;
+  value?: string[];
+  onChangeValue: (event: SelectChangeEvent<string[]>) => void;
+};
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -31,30 +37,31 @@ function getStyles(name: string, personName: readonly string[], theme: Theme) {
   };
 }
 
-export default function SelectDropdown() {
+export default function SelectDropdown({ value, onChangeValue }: SelectProps) {
   const theme = useTheme();
-  const [roomMemberCount, setRoomMemberCount] = React.useState<string[]>([]);
-  const handleChange = (event: SelectChangeEvent<typeof roomMemberCount>) => {
-    const {
-      target: { value },
-    } = event;
-    setRoomMemberCount(typeof value === 'string' ? value.split(',') : value);
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
   };
 
   return (
     <>
       <FormControl sx={{ m: 1, width: 300, mt: 3 }}>
         <Select
-          multiple
           displayEmpty
-          value={roomMemberCount}
-          onChange={handleChange}
+          value={value}
+          onChange={onChangeValue}
           input={<OutlinedInput />}
           renderValue={(selected) => {
             if (selected.length === 0) {
               return <em>방 인원을 설정해주세요.</em>;
             }
-            return selected.join(', ');
+            return selected;
           }}
           MenuProps={MenuProps}
           inputProps={{ 'aria-label': 'Without label' }}
@@ -63,7 +70,7 @@ export default function SelectDropdown() {
             <MenuItem
               key={membercount}
               value={membercount}
-              style={getStyles(membercount, roomMemberCount, theme)}
+              style={getStyles(membercount, value ?? [], theme)}
             >
               {membercount}
             </MenuItem>

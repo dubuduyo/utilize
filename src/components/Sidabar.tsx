@@ -9,7 +9,6 @@ import Modal from './Modal';
 export default function Sidabar() {
   const { data, isLoading: loading } = useSWR<FullPost[]>('/api/conversations');
   const [openModal, setOpenModal] = useState(false);
-  const createNewChat = async () => {};
 
   return (
     <div className="p-2 flex flex-col h-screen">

@@ -1,9 +1,30 @@
-import { FormEvent, useCallback, useRef, useState } from 'react';
+'use client';
+
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useCallback,
+  useRef,
+  useState,
+} from 'react';
 import SelectDropdown from './ui/SelectDropdown';
 import Button from './ui/Button';
+import { SelectChangeEvent } from '@mui/material';
+import { useRouter } from 'next/navigation';
 
 export default function NewRoom() {
   const [roomName, setRoomName] = useState('');
+  const [roomMemberCount, setRoomMemberCount] = React.useState<string[]>([]);
+  const [error, setError] = useState<string>();
+  const router = useRouter();
+
+  const handleChange = (event: SelectChangeEvent<typeof roomMemberCount>) => {
+    const {
+      target: { value },
+    } = event;
+    setRoomMemberCount(typeof value === 'string' ? value.split(',') : value);
+  };
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   const checkRoomNameLen = useCallback((roomName: string) => {
@@ -29,6 +50,20 @@ export default function NewRoom() {
       alert('이름 형식이 올바르지 않습니다.');
       return;
     }
+
+    const formData = new FormData();
+    formData.append('room name', inputRef.current?.value ?? '');
+    formData.append('room member count', roomMemberCount.join(''));
+
+    fetch('/api/conversations', { method: 'POST', body: formData })
+      .then((res) => {
+        if (!res.ok) {
+          setError(`${res.status} ${res.statusText}`);
+          return;
+        }
+        router.push('/');
+      })
+      .catch((err) => setError(err.toString()));
   };
 
   return (
@@ -45,7 +80,7 @@ export default function NewRoom() {
         value={roomName}
         onChange={(e) => setRoomName(e.target.value)}
       />
-      <SelectDropdown />
+      <SelectDropdown value={roomMemberCount} onChangeValue={handleChange} />
       <Button text="Publish" onClick={() => {}} />
     </form>
   );
